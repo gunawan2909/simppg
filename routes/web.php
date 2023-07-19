@@ -1,9 +1,11 @@
 <?php
 
+use App\Charts\KompalinChart;
 use App\Http\Controllers\AsetController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PemeliharaanController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,7 +32,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user/null', [UserController::class, 'nullRole'])->name('user.role.null');
     Route::middleware(['user'])->group(function () {
         Route::get('/', function () {
-            return view('Layout', ['panel' => '']);
+            if (Auth::user()->jabatan == "Karyawan") {
+                return redirect(route('pemeliharaan.komplain.index'));
+            } else {
+                return  redirect(route('pemeliharaan.pelaporan.index'));
+            }
         })->name('dashboard');
 
         //Komponen CRUD

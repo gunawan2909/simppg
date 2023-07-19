@@ -1,6 +1,16 @@
 @extends('Layout')
 @section('Dashboard')
     <h1 class="font-bold text-4xl text-center my-10">Penanganan</h1>
+    <div class="container px-4 mx-auto">
+
+        <div class="p-6 m-20 bg-white rounded shadow">
+            {!! $chart->container() !!}
+        </div>
+
+    </div>
+    <script src="{{ $chart->cdn() }}"></script>
+
+    {{ $chart->script() }}
     <div class=" flex items-center w-full px-20 mt-10">
         <a href="?bulan={{ $bulan - 1 }}&tahun={{ $tahun }}">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">

@@ -1,6 +1,6 @@
 <ul class="menu bg-sky-900 h-screen w-56">
 
-    <li class=" font-semibold text-white text-xl">
+    <li class=" font-semibold text-white text-xl  {{ Auth::user()->jabatan == 'Admin' ? '' : 'hidden' }}">
         <details {{ $panel == 'aset' ? 'open' : '' }}>
             <summary> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 2048 2048">
                     <path fill="currentColor"
@@ -15,7 +15,7 @@
             </ul>
         </details>
     </li>
-    <li class=" font-semibold text-white text-xl">
+    <li class=" font-semibold text-white text-xl {{ Auth::user()->jabatan == 'Admin' ? '' : 'hidden' }}">
         <details {{ $panel == 'user' ? 'open' : '' }}>
             <summary>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 2048 2048">
@@ -46,10 +46,13 @@
             </summary>
             <ul>
 
-                <li><a href="{{ route('pemeliharaan.kegiatan.index') }}">Kegeiatan</a></li>
+                <li><a class="{{ Auth::user()->jabatan == 'Admin' ? '' : 'hidden' }}"
+                        href="{{ route('pemeliharaan.kegiatan.index') }}">Kegeiatan</a></li>
                 <li><a href="{{ route('pemeliharaan.komplain.index') }}">Komplain</a></li>
-                <li><a href="{{ route('pemeliharaan.penanganan.index') }}">Penanganan</a></li>
-                <li><a href="{{ route('pemeliharaan.pelaporan.index') }}">Pelaporan</a></li>
+                <li><a {{ Auth::user()->jabatan == 'Karyawan'  ? 'hidden' : '' }}
+                        href="{{ route('pemeliharaan.penanganan.index') }}">Penanganan</a></li>
+                <li><a class=" {{ Auth::user()->jabatan == 'Karyawan' ? 'hidden' : '' }}"
+                        href="{{ route('pemeliharaan.pelaporan.index') }}">Pelaporan</a></li>
 
             </ul>
         </details>

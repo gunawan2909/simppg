@@ -128,7 +128,7 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class=" text-center">
 
                 @foreach ($komplain as $item)
                     <tr>
@@ -140,7 +140,7 @@
                         <td>
                             <div class=" flex justify-center space-x-2">
                                 <a href="{{ route('pemeliharaan.komplain.detail', ['id' => $item->id]) }}"
-                                    class=" p-1 rounded-md h-[48px] w-[48px] grid content-center justify-center btn-info ">
+                                    class=" p-1 rounded-md h-[48px] w-[48px] grid content-center justify-center btn-info {{ Auth::user()->jabatan == 'Admin' ? '' : 'hidden' }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         viewBox="0 0 16 16">
                                         <path fill="currentColor" fill-rule="evenodd"

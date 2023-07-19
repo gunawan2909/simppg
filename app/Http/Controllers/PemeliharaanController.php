@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\KompalinChart;
+use App\Charts\KompalinChartBar;
 use App\Models\User;
 use App\Models\Kegiatan;
 use App\Models\Komplain;
@@ -201,7 +203,7 @@ class PemeliharaanController extends Controller
 
 
     //Pelaporan 
-    public function indexPelaporan()
+    public function indexPelaporan(KompalinChartBar $chart)
     {
         $bulan = request(['bulan'][0]) ?? date('m');
         $tahun = request(['tahun'][0]) ?? date('Y');
@@ -223,6 +225,7 @@ class PemeliharaanController extends Controller
             'bulan' => $bulan,
             'tahun' => $tahun,
             'search' => request(['search'][0]),
+            'chart' => $chart->build()
 
         ]);
     }
