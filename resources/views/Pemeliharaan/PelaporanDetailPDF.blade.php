@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <h5 class="text-center display-4 font-weight-bold mt-4">Laporan Pengajuan Komplain</h5>
+    <p class="text-center display-4 mt-4">Laporan Pengajuan Komplain</p>
     <div class="container mt-5">
         <div class="row">
             <div class="col">
@@ -23,8 +23,17 @@
                     <label for="kegiatan">Kegiatan</label>
                     <p class="h5"> {{ $pemeliharaan->kegiatan->name }}</p>
                 </div>
+                <div class="form-group">
+                    <label for="kegiatan">Tanggal Komplain</label>
+                    <p class="h5"> {{ $pemeliharaan->komplain->created_at }}</p>
+                </div>
+                <div class="form-group">
+                    <label for="kegiatan">Tanggal Pelaksaan</label>
+                    <p class="h5"> {{ $pemeliharaan->listkebutuhan[0]->created_at ?? $pemeliharaan->komplain->created_at  }}</p>
+                </div>
 
             </div>
+
             <div class="col">
                 <div class="form-group">
                     <label for="keterangan">Keterangan</label>

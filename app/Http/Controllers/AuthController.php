@@ -51,11 +51,13 @@ class AuthController extends Controller
             'email' => 'required|unique:users|email',
             'name' => 'required',
             'password' => 'required|min:8|confirmed',
-            'image' => 'required|image|max:6000'
+            'image' => 'image|max:6000'
         ]);
         $data['password'] = bcrypt($data['password']);
         $data['jabatan'] = "Null";
-        $data['image'] = Request()->file('image')->store('user');
+        if (Request()->file('image')) {
+            $data['image'] = Request()->file('image')->store('user');
+        }
         User::create($data);
         Auth::attempt((request()->only('email', 'password')));
         return redirect(route('dashboard'));

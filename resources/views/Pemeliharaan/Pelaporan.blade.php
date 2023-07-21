@@ -127,8 +127,10 @@
                 <tr class=" text-lg text-center">
                     <th></th>
                     <th>Tanggal Komplain</th>
+                    <th>Tanggal Pelaksaan</th>
                     <th>Nama Pelapor</th>
-                    <th>Nama Komponene ME</th>
+                    <th>Nama Teknisi</th>
+                    <th>Nama Komponen ME</th>
                     <th>Total Harga</th>
                     <th>Action</th>
                 </tr>
@@ -139,8 +141,10 @@
                     <tr class=" text-center">
                         <th>{{ $loop->iteration }}</th>
                         <td>{{ $item->created_at }}</td>
+                        <td>{{ $item->pemeliharaan->listkebutuhan[0]->created_at ?? $item->created_at  }}</td>
                         <td>{{ $item->user->name }}</td>
-                        <td>{{ $item->komponen->name }}</td>
+                        <td>{{ $item->pemeliharaan->user->name }}</td>
+                        <td>{{ $item->komponen->name . '-' . $item->komponen->lokasi }}</td>
                         @php
                             $total = 0;
                             foreach ($item->pemeliharaan->listkebutuhan as $a) {

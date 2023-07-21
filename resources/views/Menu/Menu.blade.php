@@ -47,9 +47,9 @@
             <ul>
 
                 <li><a class="{{ Auth::user()->jabatan == 'Admin' ? '' : 'hidden' }}"
-                        href="{{ route('pemeliharaan.kegiatan.index') }}">Kegeiatan</a></li>
+                        href="{{ route('pemeliharaan.kegiatan.index') }}">Kegiatan</a></li>
                 <li><a href="{{ route('pemeliharaan.komplain.index') }}">Komplain</a></li>
-                <li><a {{ Auth::user()->jabatan == 'Karyawan'  ? 'hidden' : '' }}
+                <li><a {{ Auth::user()->jabatan == 'Karyawan' ? 'hidden' : '' }}
                         href="{{ route('pemeliharaan.penanganan.index') }}">Penanganan</a></li>
                 <li><a class=" {{ Auth::user()->jabatan == 'Karyawan' ? 'hidden' : '' }}"
                         href="{{ route('pemeliharaan.pelaporan.index') }}">Pelaporan</a></li>

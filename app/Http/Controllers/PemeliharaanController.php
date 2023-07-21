@@ -128,6 +128,37 @@ class PemeliharaanController extends Controller
         return redirect(route('pemeliharaan.komplain.index'));
     }
 
+    public function addPemeliharaan()
+    {
+        return view('Pemeliharaan.PenangananAdd', [
+            'panel' => 'pemeliharaan',
+            'kegiatan' => Kegiatan::all(),
+            'komponen' => Komponen::all(),
+            'kebutuhan' => Kebutuhan::all(),
+
+        ]);
+    }
+    public function storePemeliharaan(Request $request)
+    {
+
+        $komplain = $request->validate([
+            'komponen_id' => 'required',
+            'image' => 'required|image|max:6000',
+            'keterangan' => 'required',
+        ]);
+        $komplain['user_id'] = Auth::user()->id;
+        $komplain['image'] = $request->file('image')->store('komplain');
+        $komplain['status'] = "Selesai";
+        $komplain = Komplain::create($komplain);
+        $pemeliharaan =  $request->validate([
+            'kegiatan_id' => 'required',
+        ]);
+        $pemeliharaan['teknisi_id'] = Auth::user()->id;
+        $pemeliharaan['komplain_id'] = $komplain->id;
+        Pemeliharaan::create($pemeliharaan);
+        return redirect(route('pemeliharaan.penanganan.index'));
+    }
+
     //Pemeliharaan Add Data 
 
     public function indexPemeliharaan()
@@ -192,7 +223,7 @@ class PemeliharaanController extends Controller
     {
         Pemeliharaan::where('id', $id)->get()[0]->komplain->update(['status' => 'Selesai']);
 
-        foreach (ListKebutuhan::where('pemeliharaan_id', $id)->get()[0] as $item) {
+        foreach (ListKebutuhan::where('pemeliharaan_id', $id)->get() as $item) {
             if ($item->kebutuhan->jenis == "bahan") {
                 $jumlah = $item->kebutuhan->jumlah - $item->jumlah;
                 $item->kebutuhan->update(['jumlah' => $jumlah]);
