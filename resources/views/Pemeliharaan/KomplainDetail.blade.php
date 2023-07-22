@@ -106,6 +106,13 @@
                         class="input input-bordered w-full">
 
                 </div>
+                <div class="form-control w-full ">
+                    <label class="label">
+                        <span class="label-text">Status</span>
+                    </label>
+                    <input value="{{ $komplain->status }}" disabled class="input input-bordered w-full">
+
+                </div>
             @endif
         @endif
 

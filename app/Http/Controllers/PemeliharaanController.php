@@ -118,12 +118,12 @@ class PemeliharaanController extends Controller
         ]);
         if (Komplain::where('id', $id)->get()[0]->pemeliharaan) {
             Komplain::where('id', $id)->get()[0]->pemeliharaan->update($data);
-            Komplain::where('id', $id)->get()[0]->update(['status' => 'Dikerjakan']);
+            Komplain::where('id', $id)->get()[0]->update(['status' => 'Ditugaskan']);
         } else {
 
             $data['komplain_id'] = $id;
             Pemeliharaan::create($data);
-            Komplain::where('id', $id)->get()[0]->update(['status' => 'Dikerjakan']);
+            Komplain::where('id', $id)->get()[0]->update(['status' => 'Ditugaskan']);
         }
         return redirect(route('pemeliharaan.komplain.index'));
     }
@@ -143,11 +143,13 @@ class PemeliharaanController extends Controller
 
         $komplain = $request->validate([
             'komponen_id' => 'required',
-            'image' => 'required|image|max:6000',
+            'image' => 'image|max:6000',
             'keterangan' => 'required',
         ]);
         $komplain['user_id'] = Auth::user()->id;
-        $komplain['image'] = $request->file('image')->store('komplain');
+        if ($request->file('image')) {
+            $komplain['image'] = $request->file('image')->store('komplain');
+        }
         $komplain['status'] = "Selesai";
         $komplain = Komplain::create($komplain);
         $pemeliharaan =  $request->validate([
@@ -216,6 +218,11 @@ class PemeliharaanController extends Controller
     public function deleteToolPemeliharaan($id)
     {
         ListKebutuhan::destroy($id);
+        return back();
+    }
+    public function dikerjakanPemeliharaan($id)
+    {
+        Pemeliharaan::where('id', $id)->get()[0]->komplain->update(['status' => 'Dikerjakan']);
         return back();
     }
 

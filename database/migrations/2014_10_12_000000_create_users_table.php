@@ -1,4 +1,4 @@
-<?php
+pelap<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('jabatan');
             $table->string('image')->nullable();
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

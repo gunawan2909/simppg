@@ -61,6 +61,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/user/role', [UserController::class, 'indexRole'])->name('user.role.index');
         Route::get('/user/role/edit/{id}', [UserController::class, 'editRole'])->name('user.role.edit');
         Route::post('/user/role/edit/{id}', [UserController::class, 'updateRole']);
+        Route::post('/user/role/delete/{id}', [UserController::class, 'delete'])->name('user.delete');
 
         //Kegiatan 
         Route::get('/pemeliharaan/kegiatan', [PemeliharaanController::class, 'indexKegiatan'])->name('pemeliharaan.kegiatan.index');
@@ -78,6 +79,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/pemeliharaan/penanganan', [PemeliharaanController::class, 'indexPemeliharaan'])->name('pemeliharaan.penanganan.index');
         Route::get('/pemeliharaan/penanganan/detail/{id}', [PemeliharaanController::class, 'detailPemeliharaan'])->name('pemeliharaan.penanganan.detail');
         Route::post('/pemeliharaan/penanganan/detail/{id}', [PemeliharaanController::class, 'finishPemeliharaan']);
+        Route::post('/pemeliharaan/penanganan/dikerjakan/{id}', [PemeliharaanController::class, 'dikerjakanPemeliharaan'])->name('pemeliharaan.penanganan.dikerjakan');
         Route::get('/pemeliharaan/penanganan/add', [PemeliharaanController::class, 'addPemeliharaan'])->name('pemeliharaan.penanganan.add');
         Route::post('/pemeliharaan/penanganan/add', [PemeliharaanController::class, 'storePemeliharaan']);
         Route::post('/pemeliharaan/penanganan/delete/{id}', [PemeliharaanController::class, 'deletePemeliharaan'])->name('pemeliharaan.penanganan.delete');

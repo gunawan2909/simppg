@@ -40,4 +40,10 @@ class UserController extends Controller
             'panel' => ""
         ]);
     }
+
+    public function delete($id)
+    {
+        User::deleted($id);
+        return back();
+    }
 }
