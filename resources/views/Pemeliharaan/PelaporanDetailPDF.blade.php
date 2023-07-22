@@ -13,7 +13,9 @@
             <div class="col">
                 <div class="form-group">
                     <label for="komponen">Komponen ME</label>
-                    <p class="h5"> {{ $pemeliharaan->komplain->komponen->name }}</p>
+                    <p class="h5">
+                        {{ $pemeliharaan->komplain->komponen->name }}-{{ $pemeliharaan->komplain->komponen->lokasi }}
+                    </p>
                 </div>
                 <div class="form-group">
                     <label for="teknisi">Teknisi Yang ditugaskan</label>
@@ -29,7 +31,8 @@
                 </div>
                 <div class="form-group">
                     <label for="kegiatan">Tanggal Pelaksaan</label>
-                    <p class="h5"> {{ $pemeliharaan->listkebutuhan[0]->created_at ?? $pemeliharaan->komplain->created_at  }}</p>
+                    <p class="h5">
+                        {{ $pemeliharaan->listkebutuhan[0]->created_at ?? $pemeliharaan->komplain->created_at }}</p>
                 </div>
 
             </div>
