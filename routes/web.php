@@ -25,12 +25,19 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/login', [AuthController::class, 'auth']);
     Route::get('/registrasi', [AuthController::class, 'registrasi'])->name('registrasi');
     Route::post('/registrasi', [AuthController::class, 'store']);
+    Route::get('/forgot-password', [AuthController::class, 'forgetPassword'])->name('password.request');
+    Route::post('/forgot-password', [AuthController::class, 'forgetPasswordStore']);
+    Route::get('/reset-password/{token}', [AuthController::class, 'resetPassword'])->name('password.reset');
+    Route::post('/reset-password/{token}', [AuthController::class, 'resetPasswordStore']);
 });
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/user/null', [UserController::class, 'nullRole'])->name('user.role.null');
-    Route::middleware(['user'])->group(function () {
+    Route::get('/email/verify', [AuthController::class, 'verifyEmail'])->name('verification.notice');
+    Route::get('/email/verify/{id}/{hash}', [AuthController::class, 'verificationEmail'])->middleware(['auth', 'signed'])->name('verification.verify');
+    Route::post('/email/verification-notification', [AuthController::class, 'verifyEmailSend'])->middleware(['throttle:6,1'])->name('verification.send');
+    Route::middleware(['user', 'verified'])->group(function () {
         Route::get('/', function () {
             if (Auth::user()->jabatan == "Karyawan") {
                 return redirect(route('pemeliharaan.komplain.index'));
@@ -38,6 +45,10 @@ Route::middleware(['auth'])->group(function () {
                 return  redirect(route('pemeliharaan.pelaporan.index'));
             }
         })->name('dashboard');
+
+        Route::get('/user/setting', [AuthController::class, 'setting'])->name('user.setting');
+        Route::post('/user/setting', [AuthController::class, 'update']);
+        Route::post('/user/password', [AuthController::class, 'updatePassword'])->name('user.password.change');
 
         //Komponen CRUD
         Route::get('/aset/komponen', [AsetController::class, 'indexKomponen'])->name('aset.komponen.index');

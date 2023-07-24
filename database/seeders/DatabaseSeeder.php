@@ -18,14 +18,14 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        User::create(['name' => 'Admin', 'jabatan' => 'Admin', 'email' => 'admin@gmail.com', 'password' => bcrypt('1234')]);
-        User::create(['name' => 'Manajer', 'jabatan' => 'Manajer', 'email' => 'manajer@gmail.com', 'password' => bcrypt('1234')]);
-        User::create(['name' => 'Teknisi1', 'jabatan' => 'Teknisi', 'email' => 'teknisi1@gmail.com', 'password' => bcrypt('1234')]);
-        User::create(['name' => 'Teknisi2', 'jabatan' => 'Teknisi', 'email' => 'teknisi2@gmail.com', 'password' => bcrypt('1234')]);
-        User::create(['name' => 'Teknisi3', 'jabatan' => 'Teknisi', 'email' => 'teknisi3@gmail.com', 'password' => bcrypt('1234')]);
-        User::create(['name' => 'Karyawan1', 'jabatan' => 'Karyawan', 'email' => 'karyawan1@gmail.com', 'password' => bcrypt('1234')]);
-        User::create(['name' => 'Karyawan2', 'jabatan' => 'Karyawan', 'email' => 'karyawan2@gmail.com', 'password' => bcrypt('1234')]);
-        User::create(['name' => 'Karyawan3', 'jabatan' => 'Karyawan', 'email' => 'karyawan3@gmail.com', 'password' => bcrypt('1234')]);
+        User::create(['name' => 'Admin', 'jabatan' => 'Admin', 'email' => 'admin@gmail.com', 'password' => bcrypt('1234'), 'email_verified_at' => now()]);
+        User::create(['name' => 'Manajer', 'jabatan' => 'Manajer', 'email' => 'manajer@gmail.com', 'password' => bcrypt('1234'), 'email_verified_at' => now()]);
+        User::create(['name' => 'Teknisi1', 'jabatan' => 'Teknisi', 'email' => 'teknisi1@gmail.com', 'password' => bcrypt('1234'), 'email_verified_at' => now()]);
+        User::create(['name' => 'Teknisi2', 'jabatan' => 'Teknisi', 'email' => 'teknisi2@gmail.com', 'password' => bcrypt('1234'), 'email_verified_at' => now()]);
+        User::create(['name' => 'Teknisi3', 'jabatan' => 'Teknisi', 'email' => 'teknisi3@gmail.com', 'password' => bcrypt('1234'), 'email_verified_at' => now()]);
+        User::create(['name' => 'Karyawan1', 'jabatan' => 'Karyawan', 'email' => 'karyawan1@gmail.com', 'password' => bcrypt('1234'), 'email_verified_at' => now()]);
+        User::create(['name' => 'Karyawan2', 'jabatan' => 'Karyawan', 'email' => 'karyawan2@gmail.com', 'password' => bcrypt('1234'), 'email_verified_at' => now()]);
+        User::create(['name' => 'Karyawan3', 'jabatan' => 'Karyawan', 'email' => 'karyawan3@gmail.com', 'password' => bcrypt('1234'), 'email_verified_at' => now()]);
         // Data Kegiatan 
         Kegiatan::create(['name' => 'Pemeliharaan']);
         Kegiatan::create(['name' => 'Perbaikan']);

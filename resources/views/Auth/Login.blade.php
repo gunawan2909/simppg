@@ -23,6 +23,10 @@
                 @enderror
                 <button type="submit" class="btn btn-success">Masuk</button>
             </form>
+            <div class=" flex w-full ">
+                <a class=" text-center w-full text-blue-400 " href="{{ route('password.request') }}">Lupa Password</a>
+
+            </div>
             <p class=" text-center">
                 Apakah belum memiliki akun? <a href="{{ route('registrasi') }}" class=" text-info hover:font-bold">
                     Registrasi</a>
