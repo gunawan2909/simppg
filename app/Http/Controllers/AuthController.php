@@ -47,7 +47,7 @@ class AuthController extends Controller
 
     public function verifyEmail()
     {
-        return view('Auth.VerifyEmail');
+        return view('Auth.VerifyEmail', ['panel' => ""]);
     }
 
     public function verifyEmailSend(Request $request)
@@ -144,7 +144,7 @@ class AuthController extends Controller
             'image' => 'required|image|max:2000',
 
         ]);
-       
+
         if ($request->file('image')) {
             $data['image'] = $request->file('image')->store('user');
         }
