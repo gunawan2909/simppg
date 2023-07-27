@@ -256,14 +256,16 @@ class PemeliharaanController extends Controller
             $bulan = 1;
         }
         $page = request(['pagination'][0]);
+        $day = request(['day'][0]) ?? "00";
         return view('Pemeliharaan.Pelaporan', [
             'panel' => 'pemeliharaan',
             'komplain' => Komplain::where('status', "Selesai")->filter(request(['search']))->whereHas('pemeliharaan', function ($query) use ($bulan, $tahun) {
-                $query->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->filter(request(['day']));
+                $query->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun);
             })->paginate($page),
             'pagination' => $page,
             'bulan' => $bulan,
             'tahun' => $tahun,
+            'day' => $day,
             'search' => request(['search'][0]),
             'chart' => $chart->build()
 
@@ -298,11 +300,12 @@ class PemeliharaanController extends Controller
         // ]);
         $pdf = app('dompdf.wrapper');
         $pdf->loadview('Pemeliharaan.PelaporanPDF', [
-            'komplain' => Komplain::where('status', "Selesai")->filter(request(['search', 'day']))->whereHas('pemeliharaan', function ($query) use ($request) {
-                $query->whereMonth('created_at', $request->bulan)->whereYear('created_at', $request->tahun)->filter(request(['day']));
+            'komplain' => Komplain::where('status', "Selesai")->filter(request(['search']))->whereHas('pemeliharaan', function ($query) use ($request) {
+                $query->whereMonth('created_at', $request->bulan)->whereYear('created_at', $request->tahun);
             })->get(),
             'bulan' => $request->bulan,
             'tahun' => $request->tahun,
+            'day' => $request->day,
         ])->setPaper('a4', 'landscape');
         return $pdf->download('Laporan Pemeliharaan ' . $request->bulan . "/" . $request->tahun . ".pdf");
     }

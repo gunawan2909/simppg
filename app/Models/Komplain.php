@@ -36,7 +36,7 @@ class Komplain extends Model
                 $query->where('name', 'like', '%' . $search . '%');
             });
         })->when($filters['day'] ?? false, function ($query, $day) {
-            $query->whereDay('created_at', $day);
-        });;
+            return  $query->whereDay('created_at', $day);
+        });
     }
 }

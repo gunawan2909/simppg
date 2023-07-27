@@ -48,7 +48,7 @@ class Pemeliharaan extends Model
                 });
             });
         })->when($filters['day'] ?? false, function ($query, $day) {
-            $query->whereDay('created_at', $day);
-        });;
+            return $query->whereDay('created_at', $day);
+        });
     }
 }

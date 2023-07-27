@@ -80,6 +80,14 @@
             <tbody>
 
                 @foreach ($komplain as $item)
+                    @php
+                        $date = $item->pemeliharaan->listkebutuhan[0]->created_at ?? $item->created_at;
+                        if ($day != '00') {
+                            if (substr($date, 8, 2) != $day) {
+                                continue;
+                            }
+                        }
+                    @endphp
                     <tr class=" text-center">
                         <th>{{ $loop->iteration }}</th>
                         <td>{{ $item->created_at }}</td>

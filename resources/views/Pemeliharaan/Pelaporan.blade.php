@@ -106,6 +106,10 @@
                     <option value="">Semua</option>
                     @php
                         for ($h = 1; $h < 32; $h++) {
+                            $d = intval($day);
+                            if ($d == $h) {
+                                echo '<option selected value="' . $h . '">' . $h . '</option>';
+                            }
                             echo '<option value="' . $h . '">' . $h . '</option>';
                         }
                     @endphp
@@ -116,6 +120,7 @@
         <form action="{{ route('pemeliharaan.pelaporan.pdf') }}" class=" self-end ">
             <input type="hidden" name="tahun" value="{{ $tahun }}">
             <input type="hidden" name="bulan" value="{{ $bulan }}">
+            <input type="hidden" name="day" value="{{ $day }}">
             <button type="submit" class=" btn btn-info ml-4">Unduh</button>
         </form>
         <form action="" method="get" class=" ml-auto mr-10 mt-auto">
@@ -144,10 +149,17 @@
 
                 @foreach ($komplain as $item)
                     <tr class=" text-center">
-
-                        <td>{{ $item->user->name }}</td>
+                        @php
+                            $date = $item->pemeliharaan->listkebutuhan[0]->created_at ?? $item->created_at;
+                            if ($day != '00') {
+                                if (substr($date, 8, 2) != $day) {
+                                    continue;
+                                }
+                            }
+                        @endphp
+                        <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->komponen->name . '-' . $item->komponen->lokasi }}</td>
-                        <td>{{ $item->pemeliharaan->listkebutuhan[0]->created_at ?? $item->created_at }}</td>
+                        <td>{{ $date }}</td>
                         <td>{{ $item->pemeliharaan->user->name }}</td>
                         <td>
                             @foreach ($item->pemeliharaan->listkebutuhan as $k)

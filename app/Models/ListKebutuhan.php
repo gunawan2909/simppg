@@ -16,4 +16,10 @@ class ListKebutuhan extends Model
     {
         return $this->belongsTo(Kebutuhan::class, 'kebutuhan_id');
     }
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['day'] ?? false, function ($query, $day) {
+            return $query->whereDay('created_at', $day);
+        });
+    }
 }
