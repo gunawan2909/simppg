@@ -113,6 +113,11 @@
             </div>
             <button type="submit" class="input self-end btn-success py-1 px-3 rounded-md font-semibold ">Terapkan</button>
         </form>
+        <form action="{{ route('pemeliharaan.pelaporan.pdf') }}" class=" self-end ">
+            <input type="hidden" name="tahun" value="{{ $tahun }}">
+            <input type="hidden" name="bulan" value="{{ $bulan }}">
+            <button type="submit" class=" btn btn-info ml-4">Unduh</button>
+        </form>
         <form action="" method="get" class=" ml-auto mr-10 mt-auto">
             <input type="hidden" name="pagination" value="{{ $pagination }}">
             <input value="{{ $search }}" type="search" name="search" id="" class=" input input-bordered  "
@@ -126,8 +131,7 @@
             <thead>
                 <tr class=" text-lg text-center">
                     <th></th>
-                    <th>Tanggal Komplain</th>
-                    <th>Nama Pelapor</th>
+
                     <th>Nama Komponen ME</th>
                     <th>Tanggal Pelaksaan</th>
                     <th>Nama Teknisi</th>
@@ -140,16 +144,15 @@
 
                 @foreach ($komplain as $item)
                     <tr class=" text-center">
-                        <th>{{ $loop->iteration }}</th>
-                        <td>{{ $item->created_at }}</td>
+
                         <td>{{ $item->user->name }}</td>
                         <td>{{ $item->komponen->name . '-' . $item->komponen->lokasi }}</td>
                         <td>{{ $item->pemeliharaan->listkebutuhan[0]->created_at ?? $item->created_at }}</td>
                         <td>{{ $item->pemeliharaan->user->name }}</td>
                         <td>
-                                @foreach ($item->pemeliharaan->listkebutuhan as $k)
-                                        <p>{{ $k->kebutuhan->name }}</p>
-                                @endforeach
+                            @foreach ($item->pemeliharaan->listkebutuhan as $k)
+                                <p>{{ $k->kebutuhan->name }}</p>
+                            @endforeach
                         </td>
                         @php
                             $total = 0;

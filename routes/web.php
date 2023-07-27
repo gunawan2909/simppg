@@ -100,6 +100,7 @@ Route::middleware(['auth'])->group(function () {
 
             //Pelaporan 
             Route::get('/pemeliharaan/pelaporan', [PemeliharaanController::class, 'indexPelaporan'])->name('pemeliharaan.pelaporan.index');
+            Route::get('/pemeliharaan/pelaporanPdf', [PemeliharaanController::class, 'indexPelaporanPDF'])->name('pemeliharaan.pelaporan.pdf');
             Route::get('/pemeliharaan/pelaporan/detail/{id}', [PemeliharaanController::class, 'detailPelaporan'])->name('pemeliharaan.pelaporan.detail');
             Route::get('/pemeliharaan/pelaporan/detailPdf/{id}', [PemeliharaanController::class, 'detailPelaporanPdf'])->name('pemeliharaan.pelaporan.print');
         });
