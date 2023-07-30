@@ -34,6 +34,10 @@ class Komplain extends Model
                     ->orwhere('lokasi', 'like', '%' . $search . '%');
             })->orwhereHas('user', function ($query) use ($search) {
                 $query->where('name', 'like', '%' . $search . '%');
+            })->orwhereHas('pemeliharaan',function($query) use ($search){
+                $query->whereHas('user',function($query) use($search){
+                    $query->where('name', 'like', '%' . $search . '%');
+                });
             });
         })->when($filters['day'] ?? false, function ($query, $day) {
             return  $query->whereDay('created_at', $day);

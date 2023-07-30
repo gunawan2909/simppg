@@ -130,11 +130,20 @@ class PemeliharaanController extends Controller
 
     public function addPemeliharaan()
     {
+        $pemeliharaan =  [
+            'kegiatan_id' => 999,
+        ];
+        $pemeliharaan['teknisi_id'] = Auth::user()->id;
+        $pemeliharaan['komplain_id'] = 999;
+        $pemeliharaan = Pemeliharaan::create($pemeliharaan);
+
         return view('Pemeliharaan.PenangananAdd', [
             'panel' => 'pemeliharaan',
             'kegiatan' => Kegiatan::all(),
             'komponen' => Komponen::all(),
             'kebutuhan' => Kebutuhan::all(),
+            'teknisi' => User::where('jabatan', 'Teknisi')->get(),
+            'pemeliharaan' => $pemeliharaan
 
         ]);
     }
@@ -150,14 +159,25 @@ class PemeliharaanController extends Controller
         if ($request->file('image')) {
             $komplain['image'] = $request->file('image')->store('komplain');
         }
-        $komplain['status'] = "Selesai";
+        $komplain['status'] = "Dikerjakan";
         $komplain = Komplain::create($komplain);
         $pemeliharaan =  $request->validate([
             'kegiatan_id' => 'required',
         ]);
-        $pemeliharaan['teknisi_id'] = Auth::user()->id;
+        if (Auth::user()->jabatan == "Admin") {
+            $request->validate(['teknisi' => "required"]);
+            $pemeliharaan['teknisi_id'] = $request->teknisi;
+        } else {
+            $pemeliharaan['teknisi_id'] = Auth::user()->id;
+        }
         $pemeliharaan['komplain_id'] = $komplain->id;
-        Pemeliharaan::create($pemeliharaan);
+        Pemeliharaan::where('id', $request->id)->update($pemeliharaan);
+        return redirect(route('pemeliharaan.penanganan.detail', ['id' => $request->id]));
+    }
+
+    public function deletePenanganan($id)
+    {
+        Pemeliharaan::where('id', $id)->delete();
         return redirect(route('pemeliharaan.penanganan.index'));
     }
 
@@ -178,10 +198,14 @@ class PemeliharaanController extends Controller
             $bulan = 1;
         }
         $page = request(['pagination'][0]);
-
+        if (Auth::user()->jabatan == "Teknisi") {
+            $pemeliharaan= Pemeliharaan::where('teknisi_id', Auth::user()->id)->filter(request(['search', 'day']))->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->paginate($page);
+        } else{
+            $pemeliharaan= Pemeliharaan::filter(request(['search', 'day']))->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->paginate($page);
+        }
         return view('Pemeliharaan.Penanganan', [
             'panel' => 'pemeliharaan',
-            'pemeliharaan' => Pemeliharaan::where('teknisi_id', Auth::user()->id)->filter(request(['search', 'day']))->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->paginate($page),
+            'pemeliharaan' => $pemeliharaan,
             'pagination' => $page,
             'bulan' => $bulan,
             'tahun' => $tahun,

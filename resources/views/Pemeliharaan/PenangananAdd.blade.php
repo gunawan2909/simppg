@@ -1,9 +1,10 @@
 @extends('Layout')
 @section('Dashboard')
     <h1 class=" text-4xl text-center font-bold ">Form Pengajuan Penanganan</h1>
-    <form class=" grid grid-cols-1 lg:grid-cols-2 gap-2 mt-10 px-10 mb-10" action="" method="post" enctype="multipart/form-data">
+    <form class=" grid grid-cols-1 lg:grid-cols-2 gap-2 mt-10 px-10 mb-10" action="" method="post"
+        enctype="multipart/form-data">
         @csrf
-        <img id="ImgPreview" class="w-60 lg:row-span-4 max-h-80  my-auto mx-auto border border-black"
+        <img id="ImgPreview" class="w-60 lg:row-span-5 max-h-80  my-auto mx-auto border border-black"
             src="{{ asset('/img/no-image.jpg') }}">
 
         <div class="form-control w-full ">
@@ -28,6 +29,20 @@
             </label>
             <textarea name="keterangan" class="textarea textarea-bordered"></textarea>
         </div>
+        @if (Auth::user()->jabatan == 'Admin')
+            <div class="form-control w-full ">
+                <label class="label">
+                    <span class="label-text">Teknisi</span>
+                </label>
+                <select name="teknisi" class="select select-bordered w-full">
+                    <option value="">Pilih Salah Satu</option>
+                    @foreach ($teknisi as $item)
+                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        @endif
+
         <div class="form-control w-full ">
             <label class="label">
                 <span class="label-text">Kegiatan</span>
@@ -55,12 +70,17 @@
 
         </div>
 
-        <a href="{{ route('pemeliharaan.penanganan.index') }}" class="btn w-full btn-lg bg-info  ">Kembali
-        </a>
-
-        <button type="submit" class="btn w-full btn-lg bg-success  ">Selesai </button>
+        <input type="hidden" name="id" value="{{ $pemeliharaan->id }}">
+        <button type="submit" class="btn w-full btn-lg bg-success lg:col-span-2 mt-4  ">Ajukan </button>
 
     </form>
+    <form method="post" action="{{ route('pemeliharaan.penanganan.langsung.delete', ['id' => $pemeliharaan->id]) }}"
+        class="grid grid-cols-1 lg:grid-cols-2 gap-2 mt-10 px-10 mb-10">
+        @csrf
+        <button class="btn w-full btn-lg bg-info col-span-2">Kembali</button>
+    </form>
+
+
 @endsection
 <script>
     function previewImage() {

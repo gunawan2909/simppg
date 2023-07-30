@@ -94,6 +94,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/pemeliharaan/penanganan/dikerjakan/{id}', [PemeliharaanController::class, 'dikerjakanPemeliharaan'])->name('pemeliharaan.penanganan.dikerjakan');
             Route::get('/pemeliharaan/penanganan/add', [PemeliharaanController::class, 'addPemeliharaan'])->name('pemeliharaan.penanganan.add');
             Route::post('/pemeliharaan/penanganan/add', [PemeliharaanController::class, 'storePemeliharaan']);
+            Route::post('/pemeliharaan/penangananLangsung/delete/{id}', [PemeliharaanController::class, 'deletePenanganan'])->name('pemeliharaan.penanganan.langsung.delete');
             Route::post('/pemeliharaan/penanganan/delete/{id}', [PemeliharaanController::class, 'deletePemeliharaan'])->name('pemeliharaan.penanganan.delete');
             Route::post('/pemeliharaan/penanganan/AddTool/{id}', [PemeliharaanController::class, 'addToolPemeliharaan'])->name('pemeliharaan.penanganan.tool.add');
             Route::post('/pemeliharaan/penanganan/deleteTool/{id}', [PemeliharaanController::class, 'deleteToolPemeliharaan'])->name('pemeliharaan.penanganan.delete.tool');
