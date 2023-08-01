@@ -2,12 +2,31 @@
 <html>
 
 <head>
+    <style>
+        /* styles.css */
+        /* ... Kode CSS lainnya ... */
+        .header-container {
+            text-align: center;
+            margin: 4px;
+        }
+
+
+
+        .imgHeader {
+            width: 100%;
+            /* Set a fixed width for the images */
+            height: auto;
+            /* Set a fixed height for the images */
+        }
+    </style>
     <!-- Add Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
 <body>
-    <p class="text-center display-4 mt-4">Laporan Pengajuan Komplain</p>
+    <div class="header-container">
+        <img src="{{ asset('/img/Panel Laporan.png') }}" alt="" class=" imgHeader">
+    </div>
     <div class="container mt-5">
         <div class="row">
             <div class="col">

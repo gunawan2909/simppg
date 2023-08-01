@@ -10,36 +10,20 @@
         /* ... Kode CSS lainnya ... */
         .header-container {
             text-align: center;
-            margin: 0 auto;
+            margin: 4px;
         }
 
-        .header-table {
+
+
+        .imgHeader {
             width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        .header-table td {
-            padding: 10px;
-            text-align: center;
-            border: none;
-            /* Remove borders from table cells */
-        }
-
-        .pp {
-            width: auto;
             /* Set a fixed width for the images */
-            height: 100px;
+            height: auto;
             /* Set a fixed height for the images */
         }
 
-        .bumn {
-            width: 100%;
-            /* Set a fixed width for the images */
-            height: 100px;
-            object-fit: cover;
-            /* Set a fixed height for the images */
-        }
+
+
 
         .report-title {
             font-size: 18px;
@@ -83,81 +67,63 @@
 
 <body>
     <div class="header-container">
-        <table class="header-table">
-            <tr>
-                <td>
-                    <img class="pp" src="https://upload.wikimedia.org/wikipedia/id/c/cc/PT_PP_logo.svg" alt="">
-                </td>
-                <td>
-                    <div class="w-full">
-                        <p class="report-title">LAPORAN PEMELIHARAAN KOMPONEN MEKANIKAL GEDUNG PALZA PP</p>
-                        <p class="month-year">
-                            @switch($bulan)
-                                @case(1)
-                                    Januari
-                                @break
+        <img src="{{ asset('/img/Panel Laporan.png') }}" alt="" class=" imgHeader">
+        <p class="month-year">
+            @switch($bulan)
+                @case(1)
+                    Januari
+                @break
 
-                                @case(2)
-                                    Februari
-                                @break
+                @case(2)
+                    Februari
+                @break
 
-                                @case(3)
-                                    Maret
-                                @break
+                @case(3)
+                    Maret
+                @break
 
-                                @case(4)
-                                    April
-                                @break
+                @case(4)
+                    April
+                @break
 
-                                @case(5)
-                                    Mei
-                                @break
+                @case(5)
+                    Mei
+                @break
 
-                                @case(6)
-                                    Juni
-                                @break
+                @case(6)
+                    Juni
+                @break
 
-                                @case(7)
-                                    Juli
-                                @break
+                @case(7)
+                    Juli
+                @break
 
-                                @case(8)
-                                    Agustus
-                                @break
+                @case(8)
+                    Agustus
+                @break
 
-                                @case(9)
-                                    September
-                                @break
+                @case(9)
+                    September
+                @break
 
-                                @case(10)
-                                    Oktober
-                                @break
+                @case(10)
+                    Oktober
+                @break
 
-                                @case(11)
-                                    November
-                                @break
+                @case(11)
+                    November
+                @break
 
-                                @case(12)
-                                    Desamber
-                                @break
+                @case(12)
+                    Desamber
+                @break
 
-                                @default
-                                    Unknown Month
-                            @endswitch
-                            {{ $tahun }}
-                        </p>
-                    </div>
-                </td>
+                @default
+                    Unknown Month
+            @endswitch
+            {{ $tahun }}
+        </p>
 
-                <td>
-                    <div class="imagebumn">
-                        <img class="bumn"
-                            src="https://upload.wikimedia.org/wikipedia/commons/1/11/Logo_BUMN_Untuk_Indonesia_2020.svg"
-                            alt="">
-                    </div>
-                </td>
-            </tr>
-        </table>
     </div>
 
     <div class="table-container">

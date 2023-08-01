@@ -199,9 +199,9 @@ class PemeliharaanController extends Controller
         }
         $page = request(['pagination'][0]);
         if (Auth::user()->jabatan == "Teknisi") {
-            $pemeliharaan= Pemeliharaan::where('teknisi_id', Auth::user()->id)->filter(request(['search', 'day']))->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->paginate($page);
-        } else{
-            $pemeliharaan= Pemeliharaan::filter(request(['search', 'day']))->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->paginate($page);
+            $pemeliharaan = Pemeliharaan::where('teknisi_id', Auth::user()->id)->filter(request(['search', 'day']))->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->paginate($page);
+        } else {
+            $pemeliharaan = Pemeliharaan::filter(request(['search', 'day']))->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->paginate($page);
         }
         return view('Pemeliharaan.Penanganan', [
             'panel' => 'pemeliharaan',

@@ -1,8 +1,8 @@
 @extends('Layout')
 @section('Dashboard')
     <h1 class="font-bold text-4xl text-center my-10">Penanganan</h1>
-    <a class=" w-full btn btn-success" href="{{ route('pemeliharaan.penanganan.add') }}"><svg xmlns="http://www.w3.org/2000/svg"
-            width="24" height="24" viewBox="0 0 24 24">
+    <a class=" w-full btn btn-success" href="{{ route('pemeliharaan.penanganan.add') }}"><svg
+            xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
             <path fill="currentColor" d="M11 13H5v-2h6V5h2v6h6v2h-6v6h-2v-6Z" />
         </svg> Laporkan Penanganan</a>
     <div class=" flex items-center w-full px-20 mt-10">
@@ -131,6 +131,10 @@
 
                 @foreach ($pemeliharaan as $item)
                     <tr class=" text-center">
+                        @if (empty($item->komplain->created_at))
+                            @continue
+                        @endif
+
                         <th>{{ $loop->iteration }}</th>
                         <td>{{ $item->komplain->created_at }}</td>
                         <td>{{ $item->komplain->user->name }}</td>
